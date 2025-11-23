@@ -40,4 +40,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle window resize
     window.addEventListener('resize', updateSlidePosition);
+    // Sidebar Functionality
+    const hamburger = document.querySelector('.hamburger');
+    const sidebar = document.querySelector('.sidebar');
+    const closeBtn = document.querySelector('.close-btn');
+    const overlay = document.querySelector('.overlay');
+    const sidebarLinks = document.querySelectorAll('.sidebar-links a');
+
+    function toggleSidebar() {
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+        document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
+    }
+
+    function closeSidebar() {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    if (hamburger) hamburger.addEventListener('click', toggleSidebar);
+    if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
+    if (overlay) overlay.addEventListener('click', closeSidebar);
+
+    // Close sidebar when a link is clicked
+    sidebarLinks.forEach(link => {
+        link.addEventListener('click', closeSidebar);
+    });
 });
